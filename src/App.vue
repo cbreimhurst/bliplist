@@ -27,7 +27,7 @@ export default {
         {
           id: 2,
           title: 'Do laundry',
-          completed: false
+          completed: true
         },
         {
           id: 3,

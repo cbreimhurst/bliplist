@@ -25,7 +25,11 @@ export default {
 }
 </script>
 <style scoped>
+.todo-item {
+    cursor: pointer;
+}
   .completed {
     text-decoration: line-through;
+    color: #999;
   }
 </style>
