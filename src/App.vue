@@ -1,11 +1,13 @@
 <template>
-  <div id="app">
+  <div id="app" v-on:mode="toggle" :class="mode">
+    <Header :mode="mode" @toggle="toggle" />
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo"/>
     <AddTodo v-on:add-todo="addTodo"/>
   </div>
 </template>
 
 <script>
+import Header from './components/Header.vue'
 import Todos from './components/Todos.vue';
 import AddTodo from './components/AddTodo.vue';
 
@@ -13,11 +15,13 @@ import AddTodo from './components/AddTodo.vue';
 export default {
   name: 'App',
   components: {
+    Header,
     Todos,
     AddTodo
   },
   data() {
     return {
+      mode: 'light',
       todos: [
         {
           id: 1,
@@ -57,6 +61,13 @@ export default {
     },
     deleteTodo(todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId);
+    },
+    toggle() {
+      if (this.mode === "dark") {
+        this.mode = "light"
+      } else {
+        this.mode = "dark"
+      }
     }
   }
 }
@@ -68,9 +79,16 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  background: #fff;
   color: #2c3e50;
-  margin-top: 60px;
+  transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+
+#app.dark {
+  background: #192734;
+  color: #E8E8E8;
+}
+
 
   body,
       input[type="text"],
