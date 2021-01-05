@@ -1,7 +1,8 @@
 <template>
   <div>
     <form @submit="addTodo">
-      <textarea 
+      <input 
+      type="text" 
       v-model="title" 
       name="title" 
       spellcheck="false" 
@@ -9,7 +10,6 @@
       autocorrect="off"
       autocapitalize="off"
       >
-      </textarea>
       <button type="submit">Add</button>
     </form>
   </div>
