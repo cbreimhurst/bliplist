@@ -82,6 +82,8 @@ export default {
   background: #fff;
   color: #2c3e50;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+  padding: 15px;
+  min-height: 100vh;
 }
 
 #app.dark {
@@ -89,6 +91,9 @@ export default {
   color: #E8E8E8;
 }
 
+body{
+  margin: 0 ;
+}
 
   body,
       input[type="text"],
