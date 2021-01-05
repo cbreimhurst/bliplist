@@ -26,7 +26,6 @@ export default {
 <style>
 header {
   display: flex;
-  padding: 25px 25px;
   align-items: center;
   justify-content: space-between;
   max-width: 400px;
