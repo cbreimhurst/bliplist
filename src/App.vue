@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Todos v-bind:todos="todos"/>
+    <AddTodo v-on:add-todo="addTodo"/>
     <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
@@ -9,13 +10,15 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import Todos from './components/Todos.vue';
+import AddTodo from './components/AddTodo.vue';
 
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    Todos
+    Todos,
+    AddTodo
   },
   data() {
     return {
@@ -48,6 +51,11 @@ export default {
       ],
     }
   },
+  methods: {
+    addTodo(newTodoObj) {
+      this.todos = [...this.todos, newTodoObj];
+    }
+  }
 }
 </script>
 
