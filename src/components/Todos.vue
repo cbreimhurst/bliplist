@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>My todolist</h2>
+    <h2>bliplist</h2>
     <ul class="todos">
         <li v-bind:key="todo.id" v-for="todo in todos">
         <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)"/>
