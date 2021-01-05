@@ -1,7 +1,15 @@
 <template>
   <div>
     <form @submit="addTodo">
-      <input type="text" v-model="title" name="title" spellcheck="false" autocomplete="off">
+      <textarea 
+      v-model="title" 
+      name="title" 
+      spellcheck="false" 
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      >
+      </textarea>
       <button type="submit">Add</button>
     </form>
   </div>
