@@ -32,4 +32,10 @@ export default {
     text-decoration: line-through;
     color: #999;
   }
+  p {
+	padding: 0.4em;
+	border: 1px solid #00d1b200;
+	margin: 0;
+	font-size: 16px;
+}
 </style>
