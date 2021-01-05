@@ -79,7 +79,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  background: #fff;
+  background: #f4f3f0;
   color: #2c3e50;
   transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
   padding: 15px;
@@ -88,7 +88,7 @@ export default {
 
 #app.dark {
   background: #192734;
-  color: #E8E8E8;
+  color: #f4f3f0;
 }
 
 body{
