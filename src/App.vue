@@ -170,14 +170,14 @@ body{
         padding: 0;
         list-style: none;
         text-align: left;
-        max-width: 400px;
+        max-width: 500px;
       }
 
       form {
         margin: 0 auto;
         padding: 0;
         text-align: left;
-        max-width: 400px;
+        max-width: 500px;
         display: flex;
       }
 
@@ -195,8 +195,13 @@ body{
         display: flex;
       }
 
-      .todos li div button {
+      .todos li div button.edit {
         margin-left: auto;
+        background-color: #3273dc;
+      }
+
+      .todos li div button.delete {
+        margin-left: 5px;
         background-color: #f14668;
       }
 
