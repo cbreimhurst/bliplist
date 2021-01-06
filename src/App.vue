@@ -69,6 +69,16 @@ export default {
         this.mode = "dark"
       }
     }
+  },
+  mounted() {
+    if (localStorage.mode) {
+      this.mode = localStorage.mode;
+    }
+  },
+  watch: {
+    mode(newMode) {
+      localStorage.mode = newMode;
+    }
   }
 }
 </script>
