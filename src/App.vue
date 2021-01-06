@@ -74,10 +74,16 @@ export default {
     if (localStorage.mode) {
       this.mode = localStorage.mode;
     }
+    if (localStorage.todos) {
+      this.todos = JSON.parse(localStorage.todos);
+    }
   },
   watch: {
     mode(newMode) {
       localStorage.mode = newMode;
+    },
+    todos(newTodos) {
+      localStorage.todos = JSON.stringify(newTodos);
     }
   }
 }
