@@ -2,7 +2,7 @@
   <div>
     <ul class="todos">
         <li v-bind:key="todo.id" v-for="todo in todos">
-        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)"/>
+        <Todo v-bind:todo="todo" v-on:delete-todo="$emit('delete-todo', todo.id)" v-on:complete-todo="$emit('complete-todo', todo.id)"/>
       </li>
     </ul>
   </div>

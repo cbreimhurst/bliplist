@@ -1,7 +1,7 @@
 <template>
   <div id="app" v-on:mode="toggle" :class="mode">
     <Header :mode="mode" @toggle="toggle" />
-    <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo"/>
+    <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
   </div>
 </template>
@@ -34,23 +34,39 @@ export default {
         },
         {
           id: 2,
+          list_id: 1,
           title: 'Do laundry',
-          completed: true
+          task_text: null,
+          completed: false,
+          insert_time: null,
+          updated_time: null
         },
         {
           id: 3,
+          list_id: 1,
           title: 'Cook food',
-          completed: false
+          task_text: null,
+          completed: false,
+          insert_time: null,
+          updated_time: null
         },
         {
           id: 4,
+          list_id: 1,
           title: 'Clean up room',
-          completed: false
+          task_text: null,
+          completed: false,
+          insert_time: null,
+          updated_time: null
         },
         {
-          i: 5,
+          id: 5,
+          list_id: 1,
           title: 'Finish work',
-          completed: false
+          task_text: null,
+          completed: false,
+          insert_time: null,
+          updated_time: null
         }
       ],
     }
@@ -61,6 +77,16 @@ export default {
     },
     deleteTodo(todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId);
+    },
+    markComplete(todoId) {
+      // this function needs work - can be reduced
+      let todosObj = this.todos;
+      var todoItem = todosObj.find(function(todo) {
+        if(todo.id == todoId)
+          return true;
+      });
+      todoItem.completed = !todoItem.completed
+      localStorage.todos = JSON.stringify(this.todos);
     },
     toggle() {
       if (this.mode === "dark") {
