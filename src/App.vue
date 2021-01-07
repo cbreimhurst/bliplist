@@ -3,6 +3,7 @@
     <Header :mode="mode" @toggle="toggle" />
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
+    <button @click="testSupabase()">test</button>
   </div>
 </template>
 
@@ -11,6 +12,10 @@ import Header from './components/Header.vue'
 import Todos from './components/Todos.vue';
 import AddTodo from './components/AddTodo.vue';
 
+import { createClient } from '@supabase/supabase-js'
+const supabaseUrl = 'https://ezobnhwtsnemtgajfsce.supabase.co'
+const supabaseKey = process.env.VUE_APP_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey)
 
 export default {
   name: 'App',
@@ -72,6 +77,19 @@ export default {
     }
   },
   methods: {
+    async testSupabase() {
+      await supabase.from("tasks").insert([
+        { 
+          id: "3b74ac4c-416c-421e-84f3-30d55762b20a",
+          list_id: "50ae42b8-16ca-484d-99a9-01c2c7cf84a1",
+          title: 'Finish work',
+          task_text: null,
+          completed: false,
+          insert_time: null,
+          updated_time: null
+        }
+        ]);
+    },
     addTodo(newTodoObj) {
       this.todos = [...this.todos, newTodoObj];
     },
@@ -97,6 +115,7 @@ export default {
     }
   },
   mounted() {
+    
     if (localStorage.mode) {
       this.mode = localStorage.mode;
     }

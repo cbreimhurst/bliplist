@@ -25,9 +25,6 @@ export default {
     "todo"
   ],
   methods: {
-    // markComplete() {
-    //   this.todo.completed = !this.todo.completed
-    // }
   }
 }
 </script>
