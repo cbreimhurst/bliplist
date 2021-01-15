@@ -5,8 +5,8 @@
     <AddTodo v-on:add-todo="addTodo"/>
     <input 
     type="text" 
-    v-model="name" 
-      name="name" 
+    v-model="title" 
+      name="title" 
       spellcheck="false" 
       autocomplete="off"
       autocorrect="off"
@@ -35,68 +35,29 @@ export default {
   },
   data() {
     return {
-      name: 'nother name',
-      notherName: '',
+      title: '',
       mode: 'light',
-      todos: [
-        {
-          id: 1,
-          list_id: 1,
-          title: 'Go workout',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
-        },
-        {
-          id: 2,
-          list_id: 1,
-          title: 'Do laundry',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
-        },
-        {
-          id: 3,
-          list_id: 1,
-          title: 'Cook food',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
-        },
-        {
-          id: 4,
-          list_id: 1,
-          title: 'Clean up room',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
-        },
-        {
-          id: 5,
-          list_id: 1,
-          title: 'Finish work',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
-        }
-      ],
+      todos: [],
     }
+  },
+  async created() {
+    let { body } = await supabase.from("tasks").select("*");
+    this.todos = body;
   },
   methods: {
     async testSupabase() {
-      await supabase.from("test").insert([
+      await supabase.from("tasks").insert([
         { 
-          name: this.name
+          title: this.title,
+          complete: 0
         }
         ]);
     },
     addTodo(newTodoObj) {
       this.todos = [...this.todos, newTodoObj];
+      console.log([...this.todos, newTodoObj]);
+      console.log(newTodoObj);
+      
     },
     deleteTodo(todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId);
@@ -109,7 +70,7 @@ export default {
           return true;
       });
       todoItem.completed = !todoItem.completed
-      localStorage.todos = JSON.stringify(this.todos);
+      // localStorage.todos = JSON.stringify(this.todos);
     },
     toggle() {
       if (this.mode === "dark") {
@@ -127,14 +88,21 @@ export default {
     if (localStorage.todos) {
       this.todos = JSON.parse(localStorage.todos);
     }
+    supabase
+    .from('tasks')
+    .on('INSERT', payload => {
+      console.log('Change received!', payload)
+      this.todos.push(payload.new);
+    })
+    .subscribe()
   },
   watch: {
     mode(newMode) {
       localStorage.mode = newMode;
     },
-    todos(newTodos) {
-      localStorage.todos = JSON.stringify(newTodos);
-    }
+    // todos(newTodos) {
+    //   localStorage.todos = JSON.stringify(newTodos);
+    // }
   }
 }
 </script>
