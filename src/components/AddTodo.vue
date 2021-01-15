@@ -35,9 +35,9 @@ export default {
     addTodo(e) {
       e.preventDefault();      
       const newTodoObj = {
-        id: uuidv4(),
+        uuid: uuidv4(),
         title: this.title,
-        completed: false
+        completed: 0
       }      
       this.$emit('add-todo', newTodoObj);
       this.title = '';

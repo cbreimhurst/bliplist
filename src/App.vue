@@ -24,6 +24,8 @@ import Header from './components/Header.vue'
 import Todos from './components/Todos.vue';
 import AddTodo from './components/AddTodo.vue';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = 'https://ezobnhwtsnemtgajfsce.supabase.co'
 const supabaseKey = process.env.VUE_APP_SUPABASE_KEY;
@@ -53,23 +55,30 @@ export default {
       await supabase.from("tasks").insert([
         { 
           title: this.title,
-          complete: 0
+          completed: 0,
+          uuid: uuidv4()
         }
         ]);
         this.title = '';
     },
-    addTodo(newTodoObj) {
+    async addTodo(newTodoObj) {
       this.todos = [...this.todos, newTodoObj];
-      console.log([...this.todos, newTodoObj]);
+      console.log(newTodoObj);
+      await supabase.from("tasks").insert([newTodoObj]);
     },
-    deleteTodo(todoId) {
-      this.todos = this.todos.filter(todo => todo.id !== todoId);
+    async deleteTodo(todoId) {
+      console.log(todoId)
+      //this.todos = this.todos.filter(todo => todo.uuid !== todoId);
+        //  await supabase
+        // .from("tasks")
+        // .match({ uuid: todoId })
+        // .delete();
     },
     markComplete(todoId) {
       // this function needs work - can be reduced
       let todosObj = this.todos;
       var todoItem = todosObj.find(function(todo) {
-        if(todo.id == todoId)
+        if(todo.uuid == todoId)
           return true;
       });
       todoItem.completed = !todoItem.completed
@@ -88,16 +97,26 @@ export default {
     if (localStorage.mode) {
       this.mode = localStorage.mode;
     }
-    if (localStorage.todos) {
-      this.todos = JSON.parse(localStorage.todos);
-    }
+    // if (localStorage.todos) {
+    //   this.todos = JSON.parse(localStorage.todos);
+    // }
+
     supabase
     .from('tasks')
     .on('INSERT', payload => {
       console.log('Change received!', payload)
       this.todos.push(payload.new);
     })
-    .subscribe()
+    .subscribe();
+
+     supabase
+      .from("tasks")
+      .on("DELETE", payload => {
+        const id = payload.old.id;
+        const index = this.todos.map(x => x.id).indexOf(id);
+        this.todos.splice(index, 1)
+      })
+      .subscribe();
   },
   watch: {
     mode(newMode) {

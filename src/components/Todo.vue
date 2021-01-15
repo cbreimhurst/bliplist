@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="{ 'completed': todo.completed }" class="todo-item">
-    <p @click="$emit('complete-todo', todo.id)">{{ todo.title }}</p>
+    <p @click="$emit('complete-todo', todo.uuid)">{{ todo.title }}</p>
 
         <button class="edit"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -8,7 +8,7 @@
   <line x1="13.5" y1="6.5" x2="17.5" y2="10.5" />
 </svg></button>
 
-    <button class="delete" @click="$emit('delete-todo', todo.id)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <button class="delete" @click="$emit('delete-todo', todo.uuid)"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <line x1="4" y1="7" x2="20" y2="7" />
   <line x1="10" y1="11" x2="10" y2="17" />
