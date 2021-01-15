@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       name: 'nother name',
+      notherName: '',
       mode: 'light',
       todos: [
         {
