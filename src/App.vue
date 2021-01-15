@@ -3,6 +3,8 @@
     <Header :mode="mode" @toggle="toggle" />
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
+
+    <form @submit="testSupabase">
     <input 
     type="text" 
     v-model="title" 
@@ -12,7 +14,8 @@
       autocorrect="off"
       autocapitalize="off"
       >
-    <button @click="testSupabase()">test</button>
+    <button  type="submit">Add</button>
+    </form>
   </div>
 </template>
 
@@ -45,19 +48,19 @@ export default {
     this.todos = body;
   },
   methods: {
-    async testSupabase() {
+    async testSupabase(e) {
+      e.preventDefault();  
       await supabase.from("tasks").insert([
         { 
           title: this.title,
           complete: 0
         }
         ]);
+        this.title = '';
     },
     addTodo(newTodoObj) {
       this.todos = [...this.todos, newTodoObj];
       console.log([...this.todos, newTodoObj]);
-      console.log(newTodoObj);
-      
     },
     deleteTodo(todoId) {
       this.todos = this.todos.filter(todo => todo.id !== todoId);
