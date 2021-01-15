@@ -4,18 +4,7 @@
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
 
-    <form @submit="testSupabase">
-    <input 
-    type="text" 
-    v-model="title" 
-      name="title" 
-      spellcheck="false" 
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      >
-    <button  type="submit">Add</button>
-    </form>
+
   </div>
 </template>
 
@@ -24,7 +13,6 @@ import Header from './components/Header.vue'
 import Todos from './components/Todos.vue';
 import AddTodo from './components/AddTodo.vue';
 
-import { v4 as uuidv4 } from 'uuid';
 
 import { createClient } from '@supabase/supabase-js'
 const supabaseUrl = 'https://ezobnhwtsnemtgajfsce.supabase.co'
@@ -50,29 +38,18 @@ export default {
     this.todos = body;
   },
   methods: {
-    async testSupabase(e) {
-      e.preventDefault();  
-      await supabase.from("tasks").insert([
-        { 
-          title: this.title,
-          completed: 0,
-          uuid: uuidv4()
-        }
-        ]);
-        this.title = '';
-    },
+
     async addTodo(newTodoObj) {
-      this.todos = [...this.todos, newTodoObj];
-      console.log(newTodoObj);
+      //console.log(newTodoObj);
       await supabase.from("tasks").insert([newTodoObj]);
     },
-    async deleteTodo(todoId) {
-      console.log(todoId)
-      //this.todos = this.todos.filter(todo => todo.uuid !== todoId);
-        //  await supabase
-        // .from("tasks")
-        // .match({ uuid: todoId })
-        // .delete();
+    async deleteTodo(id) {
+      console.log(id)
+      // this.todos = this.todos.filter(todo => todo.uuid !== todoId);
+       await supabase
+  .from('tasks')
+  .delete()
+  .eq('uuid', id)
     },
     markComplete(todoId) {
       // this function needs work - can be reduced
@@ -107,16 +84,13 @@ export default {
       console.log('Change received!', payload)
       this.todos.push(payload.new);
     })
-    .subscribe();
-
-     supabase
-      .from("tasks")
-      .on("DELETE", payload => {
+    .on("DELETE", payload => {
         const id = payload.old.id;
         const index = this.todos.map(x => x.id).indexOf(id);
         this.todos.splice(index, 1)
       })
-      .subscribe();
+    .subscribe();
+
   },
   watch: {
     mode(newMode) {
