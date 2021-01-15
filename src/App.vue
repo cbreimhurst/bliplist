@@ -47,9 +47,9 @@ export default {
       console.log(id)
       // this.todos = this.todos.filter(todo => todo.uuid !== todoId);
        await supabase
-  .from('tasks')
-  .delete()
-  .eq('uuid', id)
+      .from('tasks')
+      .delete()
+      .eq('uuid', id)
     },
     markComplete(todoId) {
       // this function needs work - can be reduced
