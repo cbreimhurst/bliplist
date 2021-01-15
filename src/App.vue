@@ -26,6 +26,7 @@ export default {
   },
   data() {
     return {
+      name: 'nother name',
       mode: 'light',
       todos: [
         {
@@ -78,15 +79,9 @@ export default {
   },
   methods: {
     async testSupabase() {
-      await supabase.from("tasks").insert([
+      await supabase.from("test").insert([
         { 
-          id: "3b74ac4c-416c-421e-84f3-30d55762b20a",
-          list_id: "50ae42b8-16ca-484d-99a9-01c2c7cf84a1",
-          title: 'Finish work',
-          task_text: null,
-          completed: false,
-          insert_time: null,
-          updated_time: null
+          name: this.name
         }
         ]);
     },
