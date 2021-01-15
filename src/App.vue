@@ -3,6 +3,15 @@
     <Header :mode="mode" @toggle="toggle" />
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
+    <input 
+    type="text" 
+    v-model="name" 
+      name="name" 
+      spellcheck="false" 
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      >
     <button @click="testSupabase()">test</button>
   </div>
 </template>
