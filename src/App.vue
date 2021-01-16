@@ -51,14 +51,24 @@ export default {
       .delete()
       .eq('uuid', id)
     },
-    markComplete(todoId) {
+    async markComplete(todoId) {
       // this function needs work - can be reduced
+
+
       let todosObj = this.todos;
       var todoItem = todosObj.find(function(todo) {
         if(todo.uuid == todoId)
           return true;
       });
       todoItem.completed = !todoItem.completed
+      let complete = !todoItem.completed
+
+      console.log(complete)
+      await supabase
+        .from('tasks')
+        .update({ completed: complete })
+        .eq('uuid', todoId)
+
       // localStorage.todos = JSON.stringify(this.todos);
     },
     toggle() {
@@ -83,6 +93,10 @@ export default {
     .on('INSERT', payload => {
       console.log('Change received!', payload)
       this.todos.push(payload.new);
+    })
+    .on('UPDATE', payload => {
+      console.log('Change received!', payload)
+      
     })
     .on("DELETE", payload => {
         const id = payload.old.id;
