@@ -61,9 +61,11 @@ export default {
           return true;
       });
       todoItem.completed = !todoItem.completed
-      let complete = !todoItem.completed
-
+      //console.log(todoItem.completed)
+      let complete = todoItem.completed
       console.log(complete)
+
+      //console.log(complete)
       await supabase
         .from('tasks')
         .update({ completed: complete })
