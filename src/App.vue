@@ -3,8 +3,6 @@
     <Header :mode="mode" @toggle="toggle" />
     <Todos v-bind:todos="todos" v-on:delete-todo="deleteTodo" v-on:complete-todo="markComplete"/>
     <AddTodo v-on:add-todo="addTodo"/>
-
-
   </div>
 </template>
 
@@ -98,7 +96,6 @@ export default {
     })
     .on('UPDATE', payload => {
       console.log('Change received!', payload)
-      
     })
     .on("DELETE", payload => {
         const id = payload.old.id;
